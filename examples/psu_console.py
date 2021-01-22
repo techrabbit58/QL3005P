@@ -1,5 +1,5 @@
 """
-A console UI for the QL3005P type PSUs.
+A console UI for the QJE-3005P type PSUs.
 Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 import os

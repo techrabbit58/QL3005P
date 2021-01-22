@@ -1,5 +1,5 @@
 """
-Check if QL3005P is physically connected or not.
+Check if QJE-3005P is physically connected or not.
 Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 from psu.QJ3005P import PSU
