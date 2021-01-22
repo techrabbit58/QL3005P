@@ -1,5 +1,7 @@
 # A Remote Control Class For QJE3005P Like PSUs #
 
+## Summary ##
+
 QJ3005P is a remote control interface class for bench power
 supplies that have a couple of
 remote control capabilities, like QuatPower LN-3005P, QJE QJ-3005P, TEK3005P
@@ -11,7 +13,24 @@ The xy3005P provides one adjustable PSU channel and can be controlled via
 USB serial emulation, at 9600 bps.
 
 The remote control capabilities are limited and have some special properties
-that must be taken in account when using the interface class:
+that must be taken in account when using the interface class.
+
+## Supported PSU Commands ##
+
+Command | Usage
+--- | ---
+*IDN? | Query for the PSU model name and product version
+STATUS? | Query PSU mode of operation (C.V./C.C.) and output status (on/off)
+VOUT1? | Query current output voltage reading
+IOUT1? | Query current output current reading
+VSET1:vv.vv | Set new output voltage to 0.0 ... 30.00 volt in 10 milli volt steps
+VSET1? | Read the last maximum output voltage set point
+ISET1:c.ccc | Set new output voltage to 0.0 ... 5.000 ampere in 1 milli amp steps
+ISET1? | Read the last maximum output current set point
+OUTPUT1 | Load switch set to on (i.e. output enabled)
+OUTPUT0 | Load switch set to off (i.e. output disabled)
+
+## Limits ##
 
 - During remote control, the front panel knob and buttons are disabled.
 - Remote control mode can only be left by power-cycling the device.
@@ -35,6 +54,8 @@ that must be taken in account when using the interface class:
 - There is no clear error feedback from the PSU. Errors must be derived from
   status/ID feedbacks and voltage/current readings.
 
+## About The Code ##
+
 The code was developed and tested with python 3.8. May also run with
 earlier or subsequent versions of python.
 
@@ -42,3 +63,5 @@ It comes with some examples and demos, how the interface class is
 intended to be used.
 
 Other requirements: `pyserial`.
+
+---
