@@ -1,0 +1,5 @@
+connect com3
+off
+wait 1000
+set 1.5v .01a
+read

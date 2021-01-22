@@ -1,0 +1,31 @@
+connect com3
+off
+set 4v .001a
+on
+wait 2000
+read
+amps .002
+wait 1000
+read
+amps .005
+wait 1000
+read
+amps .01
+wait 1000
+read
+amps .02
+wait 1000
+read
+amps .05
+wait 1000
+read
+amps .1
+wait 1000
+read
+amps .2
+wait 1000
+read
+amps .35
+wait 1000
+read
+off

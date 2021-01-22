@@ -4,6 +4,7 @@ Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 import os
 import re
+import time
 from cmd import Cmd
 from textwrap import dedent
 from typing import Optional, List
@@ -42,8 +43,8 @@ class PsuConsole(Cmd):
                     self.connection_error()
         return False
 
-    def do_info(self, line) -> bool:
-        """Show the current PSU status and operational mode. Example: "info"."""
+    def do_read(self, line) -> bool:
+        """Show current voltage and current reading, PSU status and operational mode. Example: "read"."""
         args = line.split()
         if len(args):
             self.parameter_error(line)
@@ -53,10 +54,8 @@ class PsuConsole(Cmd):
             with self.psu as psu:
                 if psu.is_available():
                     reading = psu.get()
-                    print(f'voltage..: {reading.volt} V')
-                    print(f'current..: {reading.amps} A')
-                    print(f'output...: {"ON" if reading.enabled else "OFF"}')
-                    print(f'mode.....: {reading.mode}')
+                    print(f'{reading.volt}V\t{reading.amps}A\t'
+                          f'{"ON" if reading.enabled else "OFF"}\t{reading.mode}')
                 else:
                     self.connection_error()
         return False
@@ -138,7 +137,7 @@ class PsuConsole(Cmd):
                     self.connection_error()
         return False
 
-    def do_run(self, line):
+    def do_run(self, line: str) -> bool:
         """Run a script from a text file. Example: "run profile1.txt"."""
         if not line.strip():
             self.parameter_error(line)
@@ -147,7 +146,17 @@ class PsuConsole(Cmd):
                 print(f'File not found: "{line}".')
             else:
                 with open(line) as f:
-                    self.cmdqueue.extend(f.read().lower().splitlines())
+                    for cmd in f.read().split('\n'):
+                        self.cmdqueue.append(cmd)
+        return False
+
+    def do_wait(self, line: str) -> bool:
+        """Waste some time (given in milliseconds). Example: "wait 500"."""
+        m = re.fullmatch(r'[123456789][0123456789]{0,3}', line.strip())
+        if not m:
+            self.parameter_error(line)
+        else:
+            time.sleep(float(m.group()) / 1000.)
         return False
 
     def do_EOF(self, line):
@@ -181,8 +190,11 @@ class PsuConsole(Cmd):
 
 
 if __name__ == '__main__':
+    console = PsuConsole()
+    if os.path.exists(os.curdir + '/psu_console.txt'):
+        console.do_run(os.curdir + '/psu_console.txt')
     try:
-        PsuConsole().cmdloop()
+        console.cmdloop()
     except KeyboardInterrupt:
         print('^C')
         raise SystemExit

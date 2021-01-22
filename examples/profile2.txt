@@ -1,5 +1,5 @@
 connect com3
 off
-set 9v .1a
-info
+set 5v .5a
+read
 bye
