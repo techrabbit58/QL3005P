@@ -196,9 +196,8 @@ class PsuConsole(Cmd):
 
 
 if __name__ == '__main__':
-    console = PsuConsole()
     try:
-        console.cmdloop()
+        PsuConsole().cmdloop()
     except KeyboardInterrupt:
         print('^C')
         raise SystemExit
