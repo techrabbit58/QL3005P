@@ -1,5 +1,6 @@
 """
 Set current and voltage to specific values and enable.
+Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 from psu.QJ3005P import PSU
 

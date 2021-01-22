@@ -1,4 +1,4 @@
-#A Remote Control Class For QJE3005P Like PSUs#
+# A Remote Control Class For QJE3005P Like PSUs #
 
 QJ3005P is a remote control interface class for bench power
 supplies that have a couple of

@@ -1,5 +1,6 @@
 """
 Switch PSU output on.
+Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 from psu.QJ3005P import PSU
 

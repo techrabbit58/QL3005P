@@ -9,6 +9,7 @@ Connect the LED directly to the PSU. Obey polarity.
 No resistors etc. The PSU runs in C.C. mode during the whole test.
 Can test LEDs of any colour, as long as the LED forward current
 maximum rating is greater or equal 20 mA.
+Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 import time
 
