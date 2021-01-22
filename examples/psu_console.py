@@ -24,7 +24,13 @@ class PsuConsole(Cmd):
     Enter "bye" to go back to the operating system prompt.
     """)
 
+    start_script = os.curdir + '/psu_console.txt'
     psu: Optional[PSU] = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if os.path.exists(self.start_script):
+            self.do_run(self.start_script)
 
     def emptyline(self) -> bool:
         return False
@@ -191,8 +197,6 @@ class PsuConsole(Cmd):
 
 if __name__ == '__main__':
     console = PsuConsole()
-    if os.path.exists(os.curdir + '/psu_console.txt'):
-        console.do_run(os.curdir + '/psu_console.txt')
     try:
         console.cmdloop()
     except KeyboardInterrupt:
