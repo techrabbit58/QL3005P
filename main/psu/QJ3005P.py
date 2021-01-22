@@ -297,17 +297,3 @@ class PSU:
         else:
             result = None
         return result
-
-
-if __name__ == '__main__':
-    with PSU('COM3') as psu:
-        print(f'PSU {psu.name} on serial port {psu.com.port}.')
-        psu.set(volt=5, amps=.5)
-        print(f'Output is set to {psu.volt} Volt and {psu.amps} Ampere.')
-        psu.enable()
-        readings = psu.get()
-        print(f'PSU runs in {"constant current" if readings.mode == "CC" else "constant voltage"} mode.')
-        print(f'Output is {"enabled" if readings.enabled else "disabled"}.')
-        print(f'Output currently provides {readings.volt} Volt and {readings.amps} Ampere.')
-        time.sleep(3)
-        psu.disable()
