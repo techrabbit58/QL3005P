@@ -4,6 +4,7 @@ Copyright (c) 2021 Karl-Dieter Zimmer-Bentin
 """
 import os
 import re
+import sys
 import time
 from cmd import Cmd
 from textwrap import dedent
@@ -29,13 +30,16 @@ class PsuConsole(Cmd):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if os.path.exists(self.start_script):
+        args = [t.strip() for s in sys.argv[1:] for t in s.split(';')]
+        if not args and os.path.exists(self.start_script):
             self.do_run(self.start_script)
+        for cmd in args:
+            self.cmdqueue.append(cmd)
 
     def emptyline(self) -> bool:
         return False
 
-    def do_connect(self, line):
+    def do_connect(self, line: str) -> bool:
         """Set serial port for PSU communication and connect to the attached PSU. Example: "connect com1"."""
         port = line.split()
         if len(port) != 1:
@@ -49,7 +53,7 @@ class PsuConsole(Cmd):
                     self.connection_error()
         return False
 
-    def do_read(self, line) -> bool:
+    def do_read(self, line: str) -> bool:
         """Show current voltage and current reading, PSU status and operational mode. Example: "read"."""
         args = line.split()
         if len(args):
@@ -113,7 +117,7 @@ class PsuConsole(Cmd):
                     self.connection_error()
         return False
 
-    def do_on(self, line):
+    def do_on(self, line: str) -> bool:
         """Switch the PSU output on. Example: "on"."""
         args = line.split()
         if len(args):
@@ -128,7 +132,7 @@ class PsuConsole(Cmd):
                     self.connection_error()
         return False
 
-    def do_off(self, line):
+    def do_off(self, line: str) -> bool:
         """Switch the PSU output off. Example: "off"."""
         args = line.split()
         if len(args):
@@ -165,18 +169,16 @@ class PsuConsole(Cmd):
             time.sleep(float(m.group()) / 1000.)
         return False
 
-    def do_EOF(self, line):
-        """Exit program at end of input file. Example: "^D"."""
-        print('EOF')
+    def do_EOF(self, line: str) -> bool:
+        """Exit program at end of input file. Examples: "^Z<ENTER>" on Windows, "^D" on Linux"."""
         return self.quit(line)
 
-    def do_bye(self, line):
+    def do_bye(self, line: str) -> bool:
         """Exit program execution and go back to the shell prompt. Example usage: "bye"."""
-        print('Bye!')
         return self.quit(line)
 
     @staticmethod
-    def quit(line):
+    def quit(line: str) -> bool:
         line.strip()
         return True
 
