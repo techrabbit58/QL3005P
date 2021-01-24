@@ -37,11 +37,9 @@ OUTPUT0 | Load switch set to off (i.e. output disabled)
 from psu.QJ3005P import PSU
 
 qj3005p = PSU('/dev/yourtty')
-````
+```
 - Recommended: Use a `with` clause to interact with the PSU.
 ```python
-import time
-
 with qj3005p as psu:
     psu.set(volt=5, amps=.5)
     psu.enable()
