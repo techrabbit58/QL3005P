@@ -4,8 +4,10 @@
 
 QJ3005P is a remote control interface class for bench power
 supplies that have a couple of
-remote control capabilities, like QuatPower LN-3005P, QJE QJ-3005P, TEK3005P
-etc. There are a lot of very similar devices available from chinese manufacturers,
+remote control capabilities, like QuatPower LN-3005P, QJE QJ-3005P, TEK3005P,
+Vellemann LABPS3005N
+etc. There are a lot of very similar devices available, apparently 
+from the same chinese manufacturer,
 all sharing the same look and feel, and more or less the same
 remote control capabilities.
 
@@ -95,8 +97,11 @@ API | Type | Remark
 
 ## About The Code ##
 
-The code was developed and tested with python 3.8. May also run with
+The code was developed and tested with python 3.7 and python 3.8. May also run with
 earlier or subsequent versions of python.
+
+Code was developed and tested on Windows 10, and tested on Raspberry Pi 4 and Raspbian.
+May also run on other platforms, that are supported by `pyserial`.
 
 It comes with some examples and demos, how the interface class is
 intended to be used.
