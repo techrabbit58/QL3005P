@@ -97,8 +97,11 @@ API | Type | Remark
 
 ## About The Code ##
 
-The code was developed and tested with python 3.8. May also run with
+The code was developed and tested with python 3.7 and python 3.8. May also run with
 earlier or subsequent versions of python.
+
+Code was developed and tested on Windows 10, and tested on Raspberry Pi 4 and Raspbian.
+May also run on other platforms, that are supported by `pyserial`.
 
 It comes with some examples and demos, how the interface class is
 intended to be used.
