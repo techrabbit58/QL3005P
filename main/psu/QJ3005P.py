@@ -237,7 +237,7 @@ class PSU:
             results.append('CV' if rc[0] == '1' else 'CC')
             results.append('OUTPUT' if rc[1] == '1' else 'NO_OUTPUT')
         else:
-            results = [None] * 3
+            results = [""] * 3
         return results
 
     @property
@@ -252,7 +252,7 @@ class PSU:
         if self.is_open():
             self._write('*IDN?')
             name = self._read()
-        return name or None
+        return name or ""
 
     def is_available(self) -> bool:
         """
@@ -295,5 +295,5 @@ class PSU:
         if self.is_open():
             result = self.status[0]
         else:
-            result = None
+            result = ""
         return result
