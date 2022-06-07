@@ -52,7 +52,7 @@ class Readings(NamedTuple):
 
 class PSU:
 
-    def __init__(self, port: str = None):
+    def __init__(self, port: str):
         """
         The PSU objects delegate all communication to the Serial class from the pyserial
         library, which must be installed in your python runtime if you want to work with
@@ -133,12 +133,15 @@ class PSU:
     def set(self, *, volt: float, amps: float):
         """
         Set voltage and current at the same time.
+        As Githuvb user MaruBu has reported, some machines may need a
+        short delay between the VSET and ISET. He recmmended 100 ms.
         :param volt: the new voltage set point (in Volt).
         :param amps: the new current set point (in Ampere).
         :return: nothing.
         """
         if self.is_open():
             self._write(f'VSET1:{min(30., max(0., volt)):5.2f}')
+            time.sleep(0.1)
             self._write(f'ISET1:{min(30., max(0., amps)):5.3f}')
 
     def get(self) -> Readings:
