@@ -133,7 +133,7 @@ class PSU:
     def set(self, *, volt: float, amps: float):
         """
         Set voltage and current at the same time.
-        As Githuvb user MaruBu has reported, some machines may need a
+        As Github user MaruBu has reported, some machines may need a
         short delay between the VSET and ISET. He recmmended 100 ms.
         :param volt: the new voltage set point (in Volt).
         :param amps: the new current set point (in Ampere).
